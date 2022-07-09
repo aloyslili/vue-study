@@ -1,6 +1,6 @@
 <template>
   <div class="home-button" :style="{ backgroundColor: bgColor }" @click="$emit('click')">
-    <div>{{ text }}</div>
+    <div class="home-button-text">{{ text }}</div>
   </div>
 </template>
 
@@ -25,6 +25,6 @@ $button-height: 70px;
   line-height: $button-height;
   font-size: 30px;
   color: #fff;
-  box-shadow: 0 0  8px 8px #ccc;
+  box-shadow: 0 0 8px 8px #ccc;
 }
 </style>

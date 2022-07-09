@@ -4,6 +4,10 @@ import router from './router'
 import store from './store'
 import './style/common.scss'
 
+1
+// import *as echarts from 'echarts'//引入echarts
+// Vue.prototype.$echarts = echarts//挂载到Vue实例上，方便全局使用
+
 import Vant from 'vant';
 import 'vant/lib/index.css';
 

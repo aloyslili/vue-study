@@ -31,6 +31,10 @@ const routes = [
     path: '/form/outlay',
     component: () => import('@/views/form/Outlay/index.vue')
   },
+  {
+    path: '/form/Consumer',
+    component: () => import('@/views/form/Consumer/index.vue')
+  },
 ]
 
 const router = new VueRouter({

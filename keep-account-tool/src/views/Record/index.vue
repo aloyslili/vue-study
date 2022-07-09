@@ -1,11 +1,83 @@
 <template>
   <div>
-    <h1>记录</h1>
+    <div class="title">我的消费记录</div>
+    <div class="top-content">
+        <div class="one">
+          <div>本月结算</div>
+          ￥{{value}}
+        </div>
+        <div class="xian"></div>
+        <div class="two">
+          <div>本月收入</div>
+          ￥{{income}}
+        </div>
+        <div class="three">
+          <div>本月支出</div>
+          ￥{{outcome}}
+        </div>
+        <div class="xian1"></div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      show: false,
+      value: "16000",
+      income: "6000",
+      outcome: "10000"
+    };
+  },
+  methods: {
+    // showPopup() {
+    //   this.show = true;
+    // },
+  },
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.title {
+  width: 375px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  background-color: rgb(66,184,132);
+  border-radius: 10px;
+}
+.top-content{
+  color: rgb(0,122,204);
+  font-size: 20px;
+  .three {
+    margin-top: -60px;
+   margin-left: 280px;
+  }
+  .two {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  .xian {
+    width: 300px;
+    /* border: solid rgb(226,226,226); */
+    border-top: 1px solid rgb(226,226,226);
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+   .xian1 {
+    width: 300px;
+    /* border: solid rgb(226,226,226); */
+    border-top: 1px solid rgb(226,226,226);
+    margin: 0 auto;
+    margin-top: 10px;
+  }
+  .one {
+    width: 375px;
+    height: 60px;
+    text-align: center;
+    /* line-height: 60px; */
+    margin-top: 10px;
+  }
+}
+</style>
