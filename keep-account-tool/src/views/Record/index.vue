@@ -4,7 +4,12 @@
     <div class="top-content">
       <div class="one">
         <div>本月结算</div>
-        ￥{{ value }}
+        <!-- <span :style="{ color: profitResult > 0 ? 'green' : 'red' }">
+          ￥
+          {{ profitResult > 0 ? '+' : '' }}
+        </span> -->
+        <span v-if="profitResult >= 0" style="color: green">￥ +{{ profitResult }}</span>
+        <span v-else style="color: red">￥{{ profitResult }}</span>
       </div>
       <div class="xian"></div>
       <div class="two">
@@ -13,7 +18,7 @@
       </div>
       <div class="three">
         <div>本月支出</div>
-        ￥{{ outcome }}
+        ￥{{ outlay }}
       </div>
       <div class="xian1"></div>
     </div>
@@ -31,17 +36,16 @@ export default {
   data() {
     return {
       show: false,
-      value: '16000',
-      income: '6000',
-      outcome: '10000',
       chart: null,
-      chartData: [],
+      income: '',
+      outlay: '',
     };
   },
   methods: {
     async queryAccountByMonth() {
-      let data = await accountService.listByCurrentMonth();
-      this.chartData = data;
+      let { income, outlay } = await accountService.listByCurrentMonth();
+      this.income = income;
+      this.outlay = outlay;
     },
     updatePieChart() {
       this.chart.setOption(
@@ -50,6 +54,17 @@ export default {
           data: this.chartData,
         }),
       );
+    },
+  },
+  computed: {
+    chartData() {
+      return [
+        { name: '收入', value: this.income },
+        { name: '支出', value: this.outlay },
+      ];
+    },
+    profitResult() {
+      return this.income - this.outlay;
     },
   },
   async mounted() {
