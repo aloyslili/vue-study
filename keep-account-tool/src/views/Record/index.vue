@@ -2,38 +2,60 @@
   <div>
     <div class="title">我的消费记录</div>
     <div class="top-content">
-        <div class="one">
-          <div>本月结算</div>
-          ￥{{value}}
-        </div>
-        <div class="xian"></div>
-        <div class="two">
-          <div>本月收入</div>
-          ￥{{income}}
-        </div>
-        <div class="three">
-          <div>本月支出</div>
-          ￥{{outcome}}
-        </div>
-        <div class="xian1"></div>
+      <div class="one">
+        <div>本月结算</div>
+        ￥{{ value }}
+      </div>
+      <div class="xian"></div>
+      <div class="two">
+        <div>本月收入</div>
+        ￥{{ income }}
+      </div>
+      <div class="three">
+        <div>本月支出</div>
+        ￥{{ outcome }}
+      </div>
+      <div class="xian1"></div>
+    </div>
+    <div>
+      <div ref="pieChart" style="width: 375px; height: 400px"></div>
     </div>
   </div>
 </template>
 
 <script>
+import createPieChartOption from './pie-chart-option.js';
+import accountService from '@/api/account.js';
+
 export default {
   data() {
     return {
       show: false,
-      value: "16000",
-      income: "6000",
-      outcome: "10000"
+      value: '16000',
+      income: '6000',
+      outcome: '10000',
+      chart: null,
+      chartData: [],
     };
   },
   methods: {
-    // showPopup() {
-    //   this.show = true;
-    // },
+    async queryAccountByMonth() {
+      let data = await accountService.listByCurrentMonth();
+      this.chartData = data;
+    },
+    updatePieChart() {
+      this.chart.setOption(
+        createPieChartOption({
+          title: '收入支出比例图',
+          data: this.chartData,
+        }),
+      );
+    },
+  },
+  async mounted() {
+    await this.queryAccountByMonth();
+    this.chart = this.$echarts.init(this.$refs.pieChart);
+    this.updatePieChart();
   },
 };
 </script>
@@ -44,15 +66,15 @@ export default {
   height: 50px;
   line-height: 50px;
   text-align: center;
-  background-color: rgb(66,184,132);
+  background-color: rgb(66, 184, 132);
   border-radius: 10px;
 }
-.top-content{
-  color: rgb(0,122,204);
+.top-content {
+  color: rgb(0, 122, 204);
   font-size: 20px;
   .three {
     margin-top: -60px;
-   margin-left: 280px;
+    margin-left: 280px;
   }
   .two {
     margin-top: 10px;
@@ -61,14 +83,14 @@ export default {
   .xian {
     width: 300px;
     /* border: solid rgb(226,226,226); */
-    border-top: 1px solid rgb(226,226,226);
+    border-top: 1px solid rgb(226, 226, 226);
     margin: 0 auto;
     margin-top: 10px;
   }
-   .xian1 {
+  .xian1 {
     width: 300px;
     /* border: solid rgb(226,226,226); */
-    border-top: 1px solid rgb(226,226,226);
+    border-top: 1px solid rgb(226, 226, 226);
     margin: 0 auto;
     margin-top: 10px;
   }
