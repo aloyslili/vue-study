@@ -61,7 +61,8 @@ export default {
         if(!value) return;
         // 请求方法
         const { data: res } = await this.$http.post("login",this.loginform)
-        console.log(res)
+        if (res.meta.status !== 200) return console.log("登录失败")
+        console.log("登陆成功")
       })
     }
   }
