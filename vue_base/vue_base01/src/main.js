@@ -7,11 +7,14 @@ import store from './store'
 import plugins from './plugings'
 // 使用插件
 Vue.use(plugins)
+// 引入vuex
+// import Vuex from 'vuex'
 
 // 关闭vue产生的提示
 Vue.config.productionTip = false
 // 在Vue中使用混合
 // Vue.mixin(hunhe)
+// Vuex.use(Vuex);
 
 new Vue({
   router,
