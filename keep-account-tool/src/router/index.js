@@ -5,8 +5,16 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    redirect: '/home',
+    path: '/', // 访问 /
+    redirect: '/login', // 重定向到 /login ？ /login在哪呢？没有
+    // component: () => import('@/views/Login/index.vue')
+  },
+  {
+    path: '/login',
+    component: () => import('@/views/Login/index.vue')
+  },
+  {
+    path: '/home',
     component: () => import('@/layout/index.vue'),
     children: [
       {
@@ -15,12 +23,12 @@ const routes = [
       },
       {
         path: '/record',
-        component: () => import('@/views/Record/index.vue')
+        component: () => import("@/views/Record/index.vue")
       },
       {
         path: '/mine',
-        component: () => import('@/views/Mine/index.vue')
-      },
+        component: () => import("@/views/Mine/index.vue")
+      }
     ]
   },
   {
@@ -39,6 +47,12 @@ const routes = [
 
 const router = new VueRouter({
   routes
+});
+
+
+router.beforeEach((to, from, next) => {
+  console.log(from.path, to.path)
+  next();
 })
 
 export default router
