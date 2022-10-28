@@ -1,18 +1,38 @@
 <template>
   <div class="hello">
-
     <h1>{{ msg }}</h1>
-    <h3>{{num}}</h3>
+    <h3>{{ num }}</h3>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
+      For a guide and recipes on how to configure / customize this project,<br />
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
     <h3>Installed CLI Plugins</h3>
     <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router" target="_blank" rel="noopener">router</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex" target="_blank" rel="noopener">vuex</a></li>
+      <li>
+        <a
+          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
+          target="_blank"
+          rel="noopener"
+          >babel</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
+          target="_blank"
+          rel="noopener"
+          >router</a
+        >
+      </li>
+      <li>
+        <a
+          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex"
+          target="_blank"
+          rel="noopener"
+          >vuex</a
+        >
+      </li>
     </ul>
     <h3>Essential Links</h3>
     <ul>
@@ -26,10 +46,26 @@
     <ul>
       <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
       <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
+      <li>
+        <a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a>
+      </li>
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    <hr>
+    <h1>vuex的学习</h1>
+    <!-- 读取vuex里面的state的数据 -->
+    <h2>{{$store.state.num}}</h2>
+    <!-- 获得的数据双向绑定显示  不能直接在dat里面修改state中的数据，虽然可以修改数据但是vuex身上并没有得到修改-->
+    <input type="text" :value="$store.state.num">
+    <input type="button" value="点击" @click="addBtn">
+    <!-- 读取vuex里面的getters的属性 -->
+    <hr>
+    <h1>getters</h1>
+    <!-- 虽然是一个方法，但是看成一个属性来使用，不需要传递参数 -->
+    <h2>{{$store.getters.getNum}}</h2>
+
+
   </div>
 </template>
 
@@ -38,9 +74,53 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String,
-    num: 5
-  }
-}
+    num: 5,
+  },
+  created() {
+    // 请求方式和接口,tongguo .then()拿数据
+    // 使域名全局配置
+    // this.$axios.get('/api/goods/home').then(
+    //   res=>{
+    //     console.log(res)
+    //   }
+    // )
+
+    // 在methods里创建方法要在created里调用
+    this.geteDate()
+    // this.getParams()
+  },
+  methods: {
+    geteDate() {
+      this.$axios.get('/api/goods/home').then(res => {
+        console.log(res);
+      });
+    },
+    addBtn() {
+      // 通过commit去触发事件,在mutation中是通过commit来触发
+      // this.$store.commit('getAdd')
+
+       // 在action中是通过diaspatch来触发的
+       this.$store.dispatch("getAddction")
+    }
+
+
+
+
+    // 对象里面用来写参数
+  //   getParams() {
+  //     this.$axios.get('http://getlink.mm2018.com:8081/selectDemo',{
+  //       params: {
+  //         id: 82
+  //       }
+  //     }).then(
+  //       // 获取数据
+  //        res=>{
+  //         console.log(res)
+  //        }
+  //     )
+  //   }
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

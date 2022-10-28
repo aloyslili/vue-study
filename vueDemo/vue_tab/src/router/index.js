@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import mytab from '../components/myTab.vue'
 import computed from '../components/Computed.vue'
 import watch from '../components/watch.vue'
+import myslot from '../components/myslot.vue'
 
 Vue.use(VueRouter)
 
@@ -35,8 +36,12 @@ const routes = [
     path:'/watch',
     name: 'watch',
     component: watch
+  },
+  {
+    path:'/myslot',
+    name: 'myslot',
+    components: myslot
   }
-
 ]
 
 const router = new VueRouter({
